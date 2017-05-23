@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "author": "Markus Hartung",
+  "name": "Marionette Popup bug",
+  "description": "Demonstrates a marionette popup bug",
+  "version": "1.0.0",
+  "browser_action": {
+    "default_popup": "popup.html"        // optional
+  },
+  "applications": {
+    "gecko": {
+      "id": "marionette-popup-bug@avira.com"
+    }
+  }
+}
