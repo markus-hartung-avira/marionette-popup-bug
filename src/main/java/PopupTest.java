@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.Extension;
@@ -12,7 +13,12 @@ import java.util.concurrent.TimeUnit;
 public class PopupTest {
   public static void main(String[] args) throws InterruptedException {
 
+//    System.setProperty("webdriver.firefox.bin", "C:\\Program Files\\Nightly\\firefox.exe");
+//    System.setProperty("webdriver.firefox.bin", "C:\\mozilla-source\\mozilla-central\\obj-i686-pc-mingw32\\dist\\bin\\firefox.exe");
     FirefoxProfile profile = new FirefoxProfile();
+//    profile.setPreference("devtools.debugger.remote-enabled", true);
+//    profile.setPreference("devtools.debugger.prompt-connection", false);
+//    profile.setPreference("devtools.chrome.enabled", true);
 
     String extensionName = "marionette-popup-bug@avira.com";
     String extensionIdentifier = "marionette-popup-bug_avira_com";
@@ -38,12 +44,14 @@ public class PopupTest {
     driver.findElement(extensionIconSelector).click();
 
     driver.switchTo().frame(driver.findElement(popupPanelSelector).findElement(popupBrowserSelector));
+    driver.executeScript("console.log('Hello World!')");
     WebElement domain = driver.findElement(domainSelector);
     domain.isDisplayed();
     driver.switchTo().defaultContent();
     driver.findElement(extensionIconSelector).sendKeys(Keys.ESCAPE);
-
+    // Wait until the popup browser is garbage collected
     Thread.sleep(2000);
-    driver.findElement(extensionIconSelector).isDisplayed();
+
+    driver.executeScript("console.log('Bye Bye World!')");
   }
 }
